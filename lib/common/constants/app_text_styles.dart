@@ -14,4 +14,7 @@ class AppTextStyles {
 
   static const TextStyle mediumText18 =
       TextStyle(fontSize: 18, fontWeight: FontWeight.w600, fontFamily: 'Inter');
+  
+  static const TextStyle inputLabelText =
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Inter');
 }
