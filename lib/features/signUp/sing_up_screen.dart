@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:app_financeiro/common/widgets/password_form_field.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/constants/app_colors.dart';
@@ -30,6 +31,14 @@ class SignUpScreen extends StatelessWidget {
               CustomTextFormField(
                 labelText: "seu nome",
                 hintText: "Lucas Paludo",
+              ),
+              PasswordFormField(
+                labelText: "Crie sua senha",
+                hintText: "*******",
+              ),
+              PasswordFormField(
+                labelText: "Confirmar senha",
+                hintText: "*******",
               )
             ],
           )),
