@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_financeiro/common/utils/uppercase_text_formatter.dart';
+import 'package:app_financeiro/common/utils/validator.dart';
 import 'package:app_financeiro/common/widgets/password_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,46 +42,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     labelText: "seu nome",
                     hintText: "LUCAS PALUDO",
                     inputFormatters: [UpperCaseTextInputFormatter()],
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return "Esse campo não pode ser vazio";
-                      }
-                      return null;
-                    },
+                    validator: Validator.validateName,
                   ),
                   CustomTextFormField(
                     labelText: "seu e-mail",
                     keyboardType: TextInputType.emailAddress,
                     hintText: "lucas@gmail.com",
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return "Esse campo não pode ser vazio";
-                      }
-                      return null;
-                    },
+                    validator: Validator.validateEmail,
                   ),
                   PasswordFormField(
+                    controller: _passwordController,
                     labelText: "Crie sua senha",
                     hintText: "*******",
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return "Esse campo não pode ser vazio";
-                      }
-                      return null;
-                    },
-                    helperText: "Deve ter pelo menos 8 caracteres, 1 letra maiúscula e 1 número.",
-                    
+                    validator: Validator.validatePassword,
+                    helperText:
+                        "Deve ter pelo menos 8 caracteres, 1 letra maiúscula e 1 número.",
                   ),
                   PasswordFormField(
-                    labelText: "Confirmar senha",
-                    hintText: "*******",
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return "Esse campo não pode ser vazio";
-                      }
-                      return null;
-                    },
-                  )
+                      labelText: "Confirmar senha",
+                      hintText: "*******",
+                      validator: (value) => Validator.validateConfirmPassword(
+                          value, _passwordController.text))
                 ],
               )),
           Padding(
@@ -88,12 +71,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: PrimaryButton(
               text: 'Cadastrar',
               onPressed: () {
-                final valid = _formKey.currentContext != null && _formKey.currentState!.validate();
+                final valid = _formKey.currentContext != null &&
+                    _formKey.currentState!.validate();
                 if (valid) {
-
-                } else {
-
-                }
+                } else {}
               },
             ),
           ),

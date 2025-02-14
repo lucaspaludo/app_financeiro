@@ -68,7 +68,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             });
           }
         },
-        
         validator: widget.validator,
         inputFormatters: widget.inputFormatters,
         obscureText: widget.obscureText ?? false,
@@ -79,7 +78,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         textCapitalization:
             widget.textCapitalization ?? TextCapitalization.none,
         decoration: InputDecoration(
-          
+          errorMaxLines: 3,
           helperMaxLines: 3,
           helperText: _helperText,
           suffixIcon: widget.suffixIcon,
