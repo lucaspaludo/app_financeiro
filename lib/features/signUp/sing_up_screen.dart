@@ -1,7 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:app_financeiro/common/utils/uppercase_text_formatter.dart';
 import 'package:app_financeiro/common/utils/validator.dart';
+import 'package:app_financeiro/common/widgets/custom_bottom_sheet.dart';
 import 'package:app_financeiro/common/widgets/password_form_field.dart';
+import 'package:app_financeiro/features/signUp/sign_up_controller.dart';
+import 'package:app_financeiro/features/signUp/sign_up_state.dart';
+import 'package:app_financeiro/services/mock_auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/constants/app_colors.dart';
@@ -17,9 +23,55 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends State<SignUpScreen>
+    with CustomModalSheetMixin<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _controller = SignUpController(MockAuthService());
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      if (_controller.state is SignUpLoadingState) {
+        showDialog(
+          context: context,
+          builder: (context) =>
+              const Center(child: CircularProgressIndicator()),
+        );
+      } else if (_controller.state is SignUpSucessState) {
+        Navigator.pop(context); // Fecha o dialog de loading
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Scaffold(
+              body: Center(child: Text("Nova Tela")),
+            ),
+          ),
+        );
+      } else if (_controller.state is SignUpErrorState) {
+        Navigator.pop(context); // Fecha o dialog de loading
+        final error = _controller.state as SignUpErrorState;
+        showCustomModalBottomSheet(
+          context: context,
+          content: error.message,
+          buttonText: 'Tentar novamente',
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +91,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   CustomTextFormField(
+                    controller: _nameController,
                     labelText: "seu nome",
                     hintText: "LUCAS PALUDO",
                     inputFormatters: [UpperCaseTextInputFormatter()],
                     validator: Validator.validateName,
                   ),
                   CustomTextFormField(
+                    controller: _emailController,
                     labelText: "seu e-mail",
                     keyboardType: TextInputType.emailAddress,
                     hintText: "lucas@gmail.com",
@@ -74,7 +128,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 final valid = _formKey.currentContext != null &&
                     _formKey.currentState!.validate();
                 if (valid) {
-                } else {}
+                  _controller.signUp(
+                    name: _nameController.text,
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  );
+                } else {
+                  log('iu');
+                }
               },
             ),
           ),
