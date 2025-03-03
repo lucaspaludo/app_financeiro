@@ -2,6 +2,7 @@
 
 import 'package:app_financeiro/common/constants/app_colors.dart';
 import 'package:app_financeiro/common/constants/app_text_styles.dart';
+import 'package:app_financeiro/common/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../common/widgets/multi_text_button.dart';
@@ -32,14 +33,19 @@ class OnBoardingScreen extends StatelessWidget {
                 left: 32.0, right: 32.0, top: 16.0, bottom: 4.0),
             child: PrimaryButton(
               text: 'Começar',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  NamedRoute.signUp,
+                );
+              },
             ),
           ),
           const SizedBox(
             height: 20,
           ),
           MultiTextButton(
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, NamedRoute.signIn) ,
             children: [
               Text(
                 'Já tem uma conta? ',

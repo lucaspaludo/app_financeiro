@@ -1,41 +1,38 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
-
 import 'package:app_financeiro/common/constants/routes.dart';
-import 'package:app_financeiro/common/utils/uppercase_text_formatter.dart';
 import 'package:app_financeiro/common/utils/validator.dart';
 import 'package:app_financeiro/common/widgets/custom_bottom_sheet.dart';
 import 'package:app_financeiro/common/widgets/password_form_field.dart';
-import 'package:app_financeiro/features/signUp/sign_up_controller.dart';
-import 'package:app_financeiro/features/signUp/sign_up_state.dart';
+import 'package:app_financeiro/features/sign_in/sign_in_state.dart';
 import 'package:app_financeiro/services/mock_auth_service.dart';
 import 'package:flutter/material.dart';
-
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/app_text_styles.dart';
 import '../../common/widgets/custom_text_form_field.dart';
 import '../../common/widgets/multi_text_button.dart';
 import '../../common/widgets/primary_button.dart';
+import 'sign_in_controller.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen>
-    with CustomModalSheetMixin<SignUpScreen> {
+class _SignInScreenState extends State<SignInScreen>
+    with CustomModalSheetMixin<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
-  final _nameController = TextEditingController();
+
   final _emailController = TextEditingController();
-  final _controller = SignUpController(MockAuthService());
+  final _controller = SignInController(MockAuthService());
 
   @override
   void dispose() {
     _passwordController.dispose();
-    _nameController.dispose();
+
     _emailController.dispose();
     _controller.dispose();
     super.dispose();
@@ -45,13 +42,13 @@ class _SignUpScreenState extends State<SignUpScreen>
   void initState() {
     super.initState();
     _controller.addListener(() {
-      if (_controller.state is SignUpStateLoading) {
+      if (_controller.state is SignInStateLoading) {
         showDialog(
           context: context,
           builder: (context) =>
               const Center(child: CircularProgressIndicator()),
         );
-      } else if (_controller.state is SignUpStateSucess) {
+      } else if (_controller.state is SignInStateSucess) {
         Navigator.pop(context); // Fecha o dialog de loading
         Navigator.push(
           context,
@@ -61,9 +58,9 @@ class _SignUpScreenState extends State<SignUpScreen>
             ),
           ),
         );
-      } else if (_controller.state is SignUpStateError) {
+      } else if (_controller.state is SignInStateError) {
         Navigator.pop(context); // Fecha o dialog de loading
-        final error = _controller.state as SignUpStateError;
+        final error = _controller.state as SignInStateError;
         showCustomModalBottomSheet(
           context: context,
           content: error.message,
@@ -78,26 +75,16 @@ class _SignUpScreenState extends State<SignUpScreen>
     return Scaffold(
       body: ListView(
         children: [
-          Text('Gaste com sabedoria',
+          Text('Seja Bem-Vindo!',
               textAlign: TextAlign.center,
               style: AppTextStyles.mediumText
                   .copyWith(color: AppColors.greenlightTwo)),
-          Text('Economize mais',
-              textAlign: TextAlign.center,
-              style: AppTextStyles.mediumText
-                  .copyWith(color: AppColors.greenlightTwo)),
-          Expanded(child: Image.asset('assets/images/signUpImage.png')),
+
+          Expanded(child: Image.asset('assets/images/signInImage.png')),
           Form(
               key: _formKey,
               child: Column(
                 children: [
-                  CustomTextFormField(
-                    controller: _nameController,
-                    labelText: "seu nome",
-                    hintText: "LUCAS PALUDO",
-                    inputFormatters: [UpperCaseTextInputFormatter()],
-                    validator: Validator.validateName,
-                  ),
                   CustomTextFormField(
                     controller: _emailController,
                     labelText: "seu e-mail",
@@ -107,30 +94,25 @@ class _SignUpScreenState extends State<SignUpScreen>
                   ),
                   PasswordFormField(
                     controller: _passwordController,
-                    labelText: "Crie sua senha",
+                    labelText: "Sua senha",
                     hintText: "*******",
                     validator: Validator.validatePassword,
                     helperText:
                         "Deve ter pelo menos 8 caracteres, 1 letra maiúscula e 1 número.",
                   ),
-                  PasswordFormField(
-                      labelText: "Confirmar senha",
-                      hintText: "*******",
-                      validator: (value) => Validator.validateConfirmPassword(
-                          value, _passwordController.text))
+
                 ],
               )),
           Padding(
             padding: const EdgeInsets.only(
                 left: 32.0, right: 32.0, top: 16.0, bottom: 4.0),
             child: PrimaryButton(
-              text: 'Cadastrar',
+              text: 'Entrar',
               onPressed: () {
                 final valid = _formKey.currentContext != null &&
                     _formKey.currentState!.validate();
                 if (valid) {
-                  _controller.signUp(
-                    name: _nameController.text,
+                  _controller.signIn(
                     email: _emailController.text,
                     password: _passwordController.text,
                   );
@@ -144,14 +126,14 @@ class _SignUpScreenState extends State<SignUpScreen>
             height: 20,
           ),
           MultiTextButton(
-            onPressed: () => Navigator.popAndPushNamed(context, NamedRoute.signIn),
+            onPressed: () => Navigator.popAndPushNamed(context, NamedRoute.signUp),
             children: [
               Text(
-                'Já tem uma conta? ',
+                'Não possui uma conta? ',
                 style: AppTextStyles.smallText.copyWith(color: AppColors.grey),
               ),
               Text(
-                'Log In ',
+                'Cadastre-se ',
                 style: AppTextStyles.smallText
                     .copyWith(color: AppColors.greenlightTwo),
               ),

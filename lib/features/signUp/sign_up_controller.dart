@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 class SignUpController extends ChangeNotifier {
   final AuthService _service;
   SignUpController(this._service);
-  SignUpState _state = SignUpInitialState();
+  SignUpState _state = SignUpStateInitial();
 
   SignUpState get state => _state;
 
@@ -20,14 +20,14 @@ class SignUpController extends ChangeNotifier {
       {required String name,
       required String email,
       required String password}) async {
-    _changeState(SignUpLoadingState());
+    _changeState(SignUpStateLoading());
 
     try {
      await _service.signUp(name: name, email: email, password: password);
-      _changeState(SignUpSucessState());
+      _changeState(SignUpStateSucess());
 
     } catch (e) {
-      _changeState(SignUpErrorState(e.toString()));
+      _changeState(SignUpStateError(e.toString()));
     }
   }
 }
