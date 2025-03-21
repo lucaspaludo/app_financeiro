@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
-
 import 'package:app_financeiro/common/constants/routes.dart';
 import 'package:app_financeiro/common/utils/uppercase_text_formatter.dart';
 import 'package:app_financeiro/common/utils/validator.dart';
@@ -10,12 +9,12 @@ import 'package:app_financeiro/features/signUp/sign_up_controller.dart';
 import 'package:app_financeiro/features/signUp/sign_up_state.dart';
 import 'package:app_financeiro/services/mock_auth_service.dart';
 import 'package:flutter/material.dart';
-
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/app_text_styles.dart';
 import '../../common/widgets/custom_text_form_field.dart';
 import '../../common/widgets/multi_text_button.dart';
 import '../../common/widgets/primary_button.dart';
+import '../../locator.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -30,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen>
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _controller = SignUpController(MockAuthService());
+  final _controller = locator.get<SignUpController>();
 
   @override
   void dispose() {
@@ -144,7 +143,8 @@ class _SignUpScreenState extends State<SignUpScreen>
             height: 20,
           ),
           MultiTextButton(
-            onPressed: () => Navigator.popAndPushNamed(context, NamedRoute.signIn),
+            onPressed: () =>
+                Navigator.popAndPushNamed(context, NamedRoute.signIn),
             children: [
               Text(
                 'Já tem uma conta? ',

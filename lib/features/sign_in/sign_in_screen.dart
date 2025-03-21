@@ -12,6 +12,7 @@ import '../../common/constants/app_text_styles.dart';
 import '../../common/widgets/custom_text_form_field.dart';
 import '../../common/widgets/multi_text_button.dart';
 import '../../common/widgets/primary_button.dart';
+import '../../locator.dart';
 import 'sign_in_controller.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -27,8 +28,7 @@ class _SignInScreenState extends State<SignInScreen>
   final _passwordController = TextEditingController();
 
   final _emailController = TextEditingController();
-  final _controller = SignInController(MockAuthService());
-
+  final _controller = locator.get<SignInController>();
   @override
   void dispose() {
     _passwordController.dispose();
@@ -79,7 +79,6 @@ class _SignInScreenState extends State<SignInScreen>
               textAlign: TextAlign.center,
               style: AppTextStyles.mediumText
                   .copyWith(color: AppColors.greenlightTwo)),
-
           Expanded(child: Image.asset('assets/images/signInImage.png')),
           Form(
               key: _formKey,
@@ -100,7 +99,6 @@ class _SignInScreenState extends State<SignInScreen>
                     helperText:
                         "Deve ter pelo menos 8 caracteres, 1 letra maiúscula e 1 número.",
                   ),
-
                 ],
               )),
           Padding(
@@ -126,7 +124,8 @@ class _SignInScreenState extends State<SignInScreen>
             height: 20,
           ),
           MultiTextButton(
-            onPressed: () => Navigator.popAndPushNamed(context, NamedRoute.signUp),
+            onPressed: () =>
+                Navigator.popAndPushNamed(context, NamedRoute.signUp),
             children: [
               Text(
                 'Não possui uma conta? ',

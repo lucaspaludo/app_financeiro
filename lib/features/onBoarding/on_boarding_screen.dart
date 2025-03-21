@@ -4,9 +4,9 @@ import 'package:app_financeiro/common/constants/app_colors.dart';
 import 'package:app_financeiro/common/constants/app_text_styles.dart';
 import 'package:app_financeiro/common/constants/routes.dart';
 import 'package:flutter/material.dart';
+import '../../common/widgets/multi_text_button.dart';
+import '../../common/widgets/primary_button.dart';
 
-import '../common/widgets/multi_text_button.dart';
-import '../common/widgets/primary_button.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
