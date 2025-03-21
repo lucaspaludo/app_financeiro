@@ -7,7 +7,6 @@ import 'package:app_financeiro/common/widgets/custom_bottom_sheet.dart';
 import 'package:app_financeiro/common/widgets/password_form_field.dart';
 import 'package:app_financeiro/features/signUp/sign_up_controller.dart';
 import 'package:app_financeiro/features/signUp/sign_up_state.dart';
-import 'package:app_financeiro/services/mock_auth_service.dart';
 import 'package:flutter/material.dart';
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/app_text_styles.dart';

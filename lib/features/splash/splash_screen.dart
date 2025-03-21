@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:app_financeiro/common/constants/app_colors.dart';
 import 'package:app_financeiro/common/constants/routes.dart';
+import 'package:app_financeiro/features/splash/splash_controller.dart';
+import 'package:app_financeiro/features/splash/splash_state.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/constants/app_text_styles.dart';
 import '../../common/widgets/custom_circular_progress_indicator.dart';
+import '../../locator.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,21 +19,27 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final _splashController = locator.get<SplashController>();
+
   @override
   void initState() {
     super.initState();
-    init();
+    _splashController.isUserLogged();
+    _splashController.addListener(() {
+      if (_splashController.state is SplashStateSucess) {
+        //TODO: NAVEGAR PARA HOME
+        log('navegar para home');
+      } else {
+        //TODO: NAVEGAR PARA ONBOARDING
+        log('navegar para onboarding');
+      }
+    });
   }
 
-  Timer init() {
-    return Timer(const Duration(seconds: 2), navigateToOnBoariding);
-  }
-
-  void navigateToOnBoariding() {
-    Navigator.pushReplacementNamed(
-      context,
-      NamedRoute.initial,
-    );
+  @override
+  void dispose() {
+    _splashController.dispose();
+    super.dispose();
   }
 
   @override
