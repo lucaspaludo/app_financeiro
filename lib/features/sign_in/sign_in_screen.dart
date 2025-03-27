@@ -49,14 +49,7 @@ class _SignInScreenState extends State<SignInScreen>
         );
       } else if (_controller.state is SignInStateSucess) {
         Navigator.pop(context); // Fecha o dialog de loading
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Scaffold(
-              body: Center(child: Text("Nova Tela")),
-            ),
-          ),
-        );
+        Navigator.pushReplacementNamed(context, NamedRoute.home);
       } else if (_controller.state is SignInStateError) {
         Navigator.pop(context); // Fecha o dialog de loading
         final error = _controller.state as SignInStateError;

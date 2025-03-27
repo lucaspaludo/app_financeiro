@@ -28,10 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
     _splashController.addListener(() {
       if (_splashController.state is SplashStateSucess) {
         //TODO: NAVEGAR PARA HOME
-        log('navegar para home');
+        Navigator.pushReplacementNamed(context, NamedRoute.home);
       } else {
         //TODO: NAVEGAR PARA ONBOARDING
-        log('navegar para onboarding');
+        Navigator.pushReplacementNamed(context, NamedRoute.initial);
       }
     });
   }

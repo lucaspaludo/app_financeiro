@@ -51,14 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen>
         );
       } else if (_controller.state is SignUpStateSucess) {
         Navigator.pop(context); // Fecha o dialog de loading
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Scaffold(
-              body: Center(child: Text("Nova Tela")),
-            ),
-          ),
-        );
+        Navigator.pushReplacementNamed(context, NamedRoute.home);
       } else if (_controller.state is SignUpStateError) {
         Navigator.pop(context); // Fecha o dialog de loading
         final error = _controller.state as SignUpStateError;

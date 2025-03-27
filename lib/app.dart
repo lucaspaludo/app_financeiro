@@ -1,5 +1,6 @@
 
 import 'package:app_financeiro/common/constants/routes.dart';
+import 'package:app_financeiro/features/home/home_screen.dart';
 import 'package:app_financeiro/features/onBoarding/on_boarding_screen.dart';
 import 'package:app_financeiro/features/sign_in/sign_in_screen.dart';
 import 'package:app_financeiro/features/splash/splash_screen.dart';
@@ -22,6 +23,7 @@ class App extends StatelessWidget {
         NamedRoute.splash:(context) => const SplashScreen(),
         NamedRoute.signUp: (context) => const SignUpScreen(),
         NamedRoute.signIn: (context) => const SignInScreen(),
+        NamedRoute.home: (context) => const HomePage(),
       },
     );
   }

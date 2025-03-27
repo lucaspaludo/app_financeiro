@@ -10,7 +10,7 @@ class FirebaseAuthService implements AuthService {
     required String email,
     required String password,
   }) async {
-   try {
+    try {
       final result = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -54,6 +54,15 @@ class FirebaseAuthService implements AuthService {
       }
     } on FirebaseAuthException catch (e) {
       throw e.message ?? "null";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
     } catch (e) {
       rethrow;
     }
