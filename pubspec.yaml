@@ -39,6 +39,7 @@ dependencies:
   get_it: ^7.6.0
   firebase_auth: ^4.16.0
   flutter_secure_storage: ^8.1.0
+  mocktail: ^1.0.0
 
 dev_dependencies:
   flutter_test:

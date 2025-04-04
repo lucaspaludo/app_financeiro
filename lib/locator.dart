@@ -4,7 +4,6 @@ import 'package:app_financeiro/features/splash/splash_controller.dart';
 import 'package:app_financeiro/services/auth_service.dart';
 import 'package:app_financeiro/services/firebase_auth_service.dart';
 import 'package:app_financeiro/services/secure_storage.dart';
-
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -18,6 +17,8 @@ void setupDependencies() {
   locator.registerFactory<SignInController>(
       () => SignInController(locator.get<AuthService>()));
 
-  locator.registerFactory<SignUpController>(
-      () => SignUpController(locator.get<AuthService>()));
+  locator.registerFactory<SignUpController>(() => SignUpController(
+        locator.get<AuthService>(),
+        const SecureStorage(),
+      ));
 }
