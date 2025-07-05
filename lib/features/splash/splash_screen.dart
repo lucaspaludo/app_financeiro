@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:app_financeiro/common/constants/app_colors.dart';
 import 'package:app_financeiro/common/constants/routes.dart';
 import 'package:app_financeiro/features/splash/splash_controller.dart';
@@ -27,10 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
     _splashController.isUserLogged();
     _splashController.addListener(() {
       if (_splashController.state is SplashStateSucess) {
-        //TODO: NAVEGAR PARA HOME
         Navigator.pushReplacementNamed(context, NamedRoute.home);
       } else {
-        //TODO: NAVEGAR PARA ONBOARDING
         Navigator.pushReplacementNamed(context, NamedRoute.initial);
       }
     });

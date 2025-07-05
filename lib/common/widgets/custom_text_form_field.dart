@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_text_styles.dart';
 
+// ignore: must_be_immutable
 class CustomTextFormField extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final String? hintText;

@@ -1,13 +1,14 @@
-
 import 'package:app_financeiro/common/constants/routes.dart';
-import 'package:app_financeiro/features/home/home_screen.dart';
+import 'package:app_financeiro/features/home/home_page_view.dart';
 import 'package:app_financeiro/features/onBoarding/on_boarding_screen.dart';
+import 'package:app_financeiro/features/profile/profile_screen.dart';
 import 'package:app_financeiro/features/sign_in/sign_in_screen.dart';
 import 'package:app_financeiro/features/splash/splash_screen.dart';
-
+import 'package:app_financeiro/features/stats/stats_screen.dart';
+import 'package:app_financeiro/features/wallet/wallet_screen.dart';
 import 'package:flutter/material.dart';
-import 'features/signUp/sing_up_screen.dart';
 
+import 'features/signUp/sing_up_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,14 +17,17 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //theme: defaultTheme,
-      
-      initialRoute: NamedRoute.splash,
+
+      initialRoute: NamedRoute.home,
       routes: {
         NamedRoute.initial: (context) => const OnBoardingScreen(),
-        NamedRoute.splash:(context) => const SplashScreen(),
+        NamedRoute.splash: (context) => const SplashScreen(),
         NamedRoute.signUp: (context) => const SignUpScreen(),
         NamedRoute.signIn: (context) => const SignInScreen(),
-        NamedRoute.home: (context) => const HomePage(),
+        NamedRoute.home: (context) => const HomePageView(),
+        NamedRoute.stats: (context) => const StatsScreen(),
+        NamedRoute.wallet: (context) => const WalletScreen(),
+        NamedRoute.profile: (context) => const ProfileScreen(),
       },
     );
   }

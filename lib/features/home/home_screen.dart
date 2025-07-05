@@ -1,33 +1,30 @@
-import 'package:app_financeiro/common/constants/routes.dart';
-import 'package:app_financeiro/services/secure_storage.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final _secureStorage = const SecureStorage();
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text("Nova Tela"),
-          ElevatedButton(
-            onPressed: ()  {
-               _secureStorage.deleteOne(key: "CURRENT_USER").then((_) => 
-                  Navigator.popAndPushNamed(context, NamedRoute.initial),
-               );
-
-            },
-            child: const Text("Logout"),
-          )
+        children: const [
+           Text("Home"),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     _secureStorage.deleteOne(key: "CURRENT_USER").then(
+          //           (_) =>
+          //               Navigator.popAndPushNamed(context, NamedRoute.initial),
+          //         );
+          //   },
+          //   child: const Text("Logout"),
+          // ),
         ],
       )),
     );
